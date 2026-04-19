@@ -80,11 +80,13 @@ body.locked {
 }
 
 .curtain-left {
+  left: 0;
   background: linear-gradient(105deg, #3a0a13 0%, var(--curtain) 45%, #8a2030 90%, #1f050c 100%);
   transform-origin: left;
 }
 
 .curtain-right {
+  right: 0;
   background: linear-gradient(255deg, #3a0a13 0%, var(--curtain) 45%, #8a2030 90%, #1f050c 100%);
   transform-origin: right;
 }
