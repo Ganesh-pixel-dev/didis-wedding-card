@@ -55,15 +55,16 @@ body.locked {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  display: grid;
-  place-items: center; /* Hard-lock everything to center */
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .curtain-panel {
   position: absolute;
   top: 0;
-  width: 50vw;
-  height: 100vh;
+  width: 50.5%; /* Slight overlap to prevent sub-pixel gaps */
+  height: 100%;
   will-change: transform;
   overflow: hidden;
 }
@@ -92,8 +93,10 @@ body.locked {
 }
 
 .curtain-seam {
-  grid-column: 1 / -1;
-  grid-row: 1 / -1;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
   width: 2px;
   height: 100%;
   background: linear-gradient(to bottom, #d4af37, #f5e0a0, #d4af37);
@@ -153,8 +156,10 @@ body.locked {
 }
 
 #curtain-lock {
-  grid-column: 1 / -1;
-  grid-row: 1 / -1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 10002;
   display: flex;
   flex-direction: column;
