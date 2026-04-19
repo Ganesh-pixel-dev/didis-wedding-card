@@ -80,15 +80,25 @@ body.locked {
 
 .curtain-left {
   background: linear-gradient(105deg, #3a0a13 0%, var(--curtain) 45%, #8a2030 90%, #1f050c 100%);
-  border-right: 2.5px solid var(--gold); /* Single strong seam */
-  margin-right: -2px; 
   transform-origin: left;
 }
 
 .curtain-right {
   background: linear-gradient(255deg, #3a0a13 0%, var(--curtain) 45%, #8a2030 90%, #1f050c 100%);
-  border-left: none; /* Removed to prevent overlapping misalignment */
   transform-origin: right;
+}
+
+.curtain-seam {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(to bottom, #d4af37, #f5e0a0, #d4af37);
+  box-shadow: 0 0 15px rgba(201, 150, 12, 0.4);
+  z-index: 9999;
+  pointer-events: none;
 }
 
 /* Radiant Backlit Glow for the Gateway */
@@ -766,12 +776,13 @@ body.locked {
     }
 
     .name-bengali {
-      font-size: clamp(2.5rem, 15vw, 4rem); /* Fluid and Uncooked */
+      font-size: clamp(2rem, 12vw, 3.2rem); /* Ironclad Scale Fix */
+      margin-top: 5px;
     }
 
     .bengali-text {
-      font-size: 1rem;
-      line-height: 1.6;
+      font-size: 0.95rem;
+      line-height: 1.5;
     }
 
     .fore-lotus {

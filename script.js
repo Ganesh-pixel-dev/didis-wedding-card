@@ -35,6 +35,7 @@ openBtn.addEventListener('click', () => {
     }
 
     gsap.to(curtainLock, { opacity: 0, y: -50, duration: 0.8, ease: "power2.inOut" });
+    gsap.to('.curtain-seam', { opacity: 0, duration: 1.5, ease: "power2.inOut" });
 
     gsap.to(curtainLeft, {
         duration: 2.2,
@@ -70,8 +71,12 @@ function initDiorama() {
     const parallaxLayers = document.querySelectorAll('.js-parallax-layer');
     parallaxLayers.forEach(layer => {
         const speed = parseFloat(layer.getAttribute('data-speed')) * 200;
+        
+        // IRONCLAD CENTERING: Force layers to start at -50% offset to match top/left: 50%
+        gsap.set(layer, { xPercent: -50, yPercent: -50 });
+
         gsap.to(layer, {
-            yPercent: -speed,
+            yPercent: -50 - speed, // Parallax relative to absolute center
             ease: "none",
             scrollTrigger: {
                 trigger: "body",
