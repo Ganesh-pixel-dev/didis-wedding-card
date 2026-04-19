@@ -17,7 +17,8 @@
 
 html, body {
   width: 100%;
-  height: 100%;
+  /* FIX: height:100% causes mobile browsers to freeze on initial paint with Lenis */
+  min-height: 100%;
   margin: 0;
   padding: 0;
   overflow-x: hidden;
@@ -249,13 +250,12 @@ body.locked {
   left: 50%;
   width: 140%; 
   height: 140%;
-  transform: translate(-50%, -50%); /* Robust centering logic */
+  transform: translate(-50%, -50%);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   pointer-events: none;
-  /* Hardware acceleration for ultra-smooth performance */
-  will-change: transform;
+  /* Removed will-change: transform — was creating too many GPU layers on mobile */
   backface-visibility: hidden;
 }
 
@@ -304,9 +304,8 @@ body.locked {
   background-size: contain;
   background-repeat: no-repeat;
   pointer-events: none;
-  will-change: transform;
+  /* Removed will-change: transform from here — applied selectively below only on desktop */
   mix-blend-mode: screen !important;
-  /* FORCED OVERRIDE: Eliminates all black box artifacts */
 }
 
 .bg-vine {
@@ -781,8 +780,14 @@ body.locked {
       padding: 40px 18px;
     }
 
+    /* MOBILE PERFORMANCE: hide heavy parallax foreground elements */
+    .fore-lotus,
+    .bg-vine {
+      display: none;
+    }
+
     .gateway-corner {
-      width: 22vw; /* Leaner corners to avoid crowding */
+      width: 22vw;
     }
     .top-left { top: 5px; left: 5px; }
     .top-right { top: 5px; right: 5px; }
@@ -793,7 +798,7 @@ body.locked {
     }
 
     .name-bengali {
-      font-size: clamp(2rem, 12vw, 3.2rem); /* Ironclad Scale Fix */
+      font-size: clamp(2rem, 12vw, 3.2rem);
       margin-top: 5px;
     }
 
@@ -802,19 +807,9 @@ body.locked {
       line-height: 1.5;
     }
 
-    .fore-lotus {
-      width: 200px;
-      height: 200px;
-      opacity: 0.15;
-    }
-
     .mid-lotus {
       width: 80px;
       height: 80px;
-    }
-
-    .bg-vine {
-      display: none;
     }
 
     .luxury-countdown {
@@ -839,8 +834,7 @@ body.locked {
     }
 
     .p-layer {
-      width: 110%; /* Reduced from 140% for mobile stability */
+      width: 110%;
       height: 110%;
     }
   }
-  

@@ -73,25 +73,32 @@ openBtn.addEventListener('click', () => {
 
 // 4. The Diorama Parallax Engine
 function initDiorama() {
+    const isMobile = window.innerWidth <= 768 || /Mobi|Android/i.test(navigator.userAgent);
     const parallaxLayers = document.querySelectorAll('.js-parallax-layer');
-    parallaxLayers.forEach(layer => {
-        const speed = parseFloat(layer.getAttribute('data-speed')) * 200;
-        
-        // IRONCLAD CENTERING: Force layers to start at -50% offset to match top/left: 50%
-        gsap.set(layer, { xPercent: -50, yPercent: -50 });
 
-        gsap.to(layer, {
-            yPercent: -50 - speed, // Parallax relative to absolute center
-            ease: "none",
-            force3D: true, // HARD-LOCK GPU MODE
-            scrollTrigger: {
-                trigger: "body",
-                start: "top top",
-                end: "bottom bottom",
-                scrub: true // INSTANT RESPONSE FOR MOBILE
-            }
+    if (!isMobile) {
+        // Desktop only: full parallax
+        parallaxLayers.forEach(layer => {
+            const speed = parseFloat(layer.getAttribute('data-speed')) * 200;
+            gsap.set(layer, { xPercent: -50, yPercent: -50 });
+            gsap.to(layer, {
+                yPercent: -50 - speed,
+                ease: "none",
+                force3D: true,
+                scrollTrigger: {
+                    trigger: "body",
+                    start: "top top",
+                    end: "bottom bottom",
+                    scrub: true
+                }
+            });
         });
-    });
+    } else {
+        // Mobile: skip parallax entirely, just center layers statically
+        parallaxLayers.forEach(layer => {
+            gsap.set(layer, { xPercent: -50, yPercent: -50 });
+        });
+    }
 
     const sections = document.querySelectorAll('.st-section');
     sections.forEach(section => {
