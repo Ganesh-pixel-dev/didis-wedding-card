@@ -63,6 +63,11 @@ openBtn.addEventListener('click', () => {
 
         lenis.start();
         initDiorama();
+        
+        // Final refresh to ensure everything is aligned after reveal
+        setTimeout(() => {
+            ScrollTrigger.refresh();
+        }, 100);
     }, 2400);
 });
 
@@ -82,7 +87,7 @@ function initDiorama() {
                 trigger: "body",
                 start: "top top",
                 end: "bottom bottom",
-                scrub: 1.5
+                scrub: 0.8
             }
         });
     });

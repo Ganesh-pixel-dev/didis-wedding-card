@@ -252,6 +252,9 @@ body.locked {
   background-position: center;
   background-repeat: no-repeat;
   pointer-events: none;
+  /* Hardware acceleration for ultra-smooth performance */
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 .layer-maroon {
