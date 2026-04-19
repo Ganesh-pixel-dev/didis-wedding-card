@@ -1,10 +1,6 @@
 // 1. Initialize Lenis Smooth Scroll
 gsap.registerPlugin(ScrollTrigger);
 
-// LAG-KILLER: Optimize scroll behavior for mobile GPUs
-ScrollTrigger.normalizeScroll(true);
-ScrollTrigger.config({ ignoreMobileResize: true });
-
 // FIX: Explicitly bind Lenis to window/documentElement so it does NOT
 // attach pointer-event-consuming listeners to #smooth-wrapper div,
 // which was silently swallowing all click events on child buttons.
