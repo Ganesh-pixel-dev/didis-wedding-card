@@ -80,13 +80,14 @@ body.locked {
 
 .curtain-left {
   background: linear-gradient(105deg, #3a0a13 0%, var(--curtain) 45%, #8a2030 90%, #1f050c 100%);
-  border-right: 2px solid var(--gold);
+  border-right: 2.5px solid var(--gold); /* Single strong seam */
+  margin-right: -2px; 
   transform-origin: left;
 }
 
 .curtain-right {
   background: linear-gradient(255deg, #3a0a13 0%, var(--curtain) 45%, #8a2030 90%, #1f050c 100%);
-  border-left: 2px solid var(--gold);
+  border-left: none; /* Removed to prevent overlapping misalignment */
   transform-origin: right;
 }
 
@@ -225,15 +226,15 @@ body.locked {
 
 .p-layer {
   position: absolute;
-  top: -20%;
-  left: -10%;
-  width: 120%;
+  top: 50%;
+  left: 50%;
+  width: 140%; 
   height: 140%;
+  transform: translate(-50%, -50%); /* Robust centering logic */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  /* FIX: Prevent ganesh ji 'breakage' from tiling */
-  will-change: transform;
+  pointer-events: none;
 }
 
 .layer-maroon {
@@ -761,17 +762,22 @@ body.locked {
     .bottom-left { bottom: 10px; left: 10px; }
     .bottom-right { bottom: 10px; right: 10px; }
     .hero-section {
-      padding-top: 10vh !important;
+      padding-top: 8vh !important;
     }
 
     .name-bengali {
-      font-size: 4.5rem;
+      font-size: clamp(2.5rem, 15vw, 4rem); /* Fluid and Uncooked */
+    }
+
+    .bengali-text {
+      font-size: 1rem;
+      line-height: 1.6;
     }
 
     .fore-lotus {
-      width: 250px;
-      height: 250px;
-      opacity: 0.2;
+      width: 200px;
+      height: 200px;
+      opacity: 0.15;
     }
 
     .mid-lotus {
