@@ -41,7 +41,6 @@ body.locked {
   /* Hardware acceleration moved here safely */
   transform: translateZ(0);
 }
-}
 
 .global-vignette {
   position: fixed;
