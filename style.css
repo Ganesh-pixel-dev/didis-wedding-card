@@ -24,6 +24,9 @@ html, body {
   background: var(--maroon-dark);
   color: var(--ivory);
   font-family: 'EB Garamond', serif;
+  /* GPU Acceleration Lock */
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
 }
 
 body.locked {
@@ -840,3 +843,5 @@ body.locked {
       width: 110%; /* Reduced from 140% for mobile stability */
       height: 110%;
     }
+  }
+  

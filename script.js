@@ -1,6 +1,10 @@
 // 1. Initialize Lenis Smooth Scroll
 gsap.registerPlugin(ScrollTrigger);
 
+// LAG-KILLER: Optimize scroll behavior for mobile GPUs
+ScrollTrigger.normalizeScroll(true);
+ScrollTrigger.config({ ignoreMobileResize: true });
+
 // FIX: Explicitly bind Lenis to window/documentElement so it does NOT
 // attach pointer-event-consuming listeners to #smooth-wrapper div,
 // which was silently swallowing all click events on child buttons.
@@ -83,11 +87,12 @@ function initDiorama() {
         gsap.to(layer, {
             yPercent: -50 - speed, // Parallax relative to absolute center
             ease: "none",
+            force3D: true, // HARD-LOCK GPU MODE
             scrollTrigger: {
                 trigger: "body",
                 start: "top top",
                 end: "bottom bottom",
-                scrub: 0.8
+                scrub: true // INSTANT RESPONSE FOR MOBILE
             }
         });
     });
