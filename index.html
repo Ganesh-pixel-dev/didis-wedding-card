@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Soumen weds Neelam · ২৯শে এপ্রিল ২০২৬</title>
+    
+    <!-- FONTS -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Serif+Bengali:wght@400;500;600&family=Cinzel:wght@400;500;600&family=Great+Vibes&display=swap" rel="stylesheet"/>
+    
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body class="locked">
+    
+    <!-- BACKGROUND MUSIC -->
+    <audio id="wedding-bgm" loop>
+        <source src="assets/didi_wedding_song.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="global-grain"></div>
+    <div class="global-vignette"></div>
+
+    <!-- ============================================== -->
+    <!-- 1. CURTAIN REVEAL                              -->
+    <!-- ============================================== -->
+    <div id="curtain-container">
+        <!-- Decorative Corners for the Royal Entrance -->
+        <div class="gateway-corner top-left"></div>
+        <div class="gateway-corner top-right"></div>
+        <div class="gateway-corner bottom-left"></div>
+        <div class="gateway-corner bottom-right"></div>
+
+        <div class="curtain-panel curtain-left"></div>
+        <div class="curtain-panel curtain-right"></div>
+        
+        <div id="curtain-lock">
+            <div class="lock-names">
+                <span class="lock-name">Soumen</span>
+                <span class="lock-weds">weds</span>
+                <span class="lock-name">Neelam</span>
+            </div>
+            <button class="open-btn" id="openBtn">আমন্ত্রণ গ্রহণ করুন</button>
+        </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- 2. FIXED DIORAMA BACKGROUND & CUTOUT           -->
+    <!-- ============================================== -->
+    <div id="diorama-bg">
+        <div class="p-layer layer-maroon"></div>
+        <div class="p-layer layer-arch js-parallax-layer" data-speed="0.1"></div>
+        <div class="p-layer layer-mandala js-parallax-layer" data-speed="0.3"></div>
+        
+        <!-- The background overlay tint (placed below text but above mandala) -->
+        <div id="master-cutout-frame"></div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- 3. TRUE NATIVE SCROLL CONTENT (WITH DEPTH)     -->
+    <!-- ============================================== -->
+    <div id="smooth-wrapper">
+        <div id="smooth-content">
+            
+            <div class="floating-item layer-stars js-parallax-layer" data-speed="0.05" style="width:100vw; height:100vh; left:0; top:0;"></div>
+
+            <!-- 3D CAM DEPTH PARALLAX ELEMENTS RESTORED -->
+            <!-- 1. Background Layers -->
+            <div class="para-element bg-vine js-parallax-layer" data-speed="0.15" style="top: 20vh; left: -10vw; transform: scaleX(-1);"></div>
+            <div class="para-element bg-vine js-parallax-layer" data-speed="0.12" style="top: 280vh; left: -8vw; transform: scaleX(-1) rotate(-10deg);"></div>
+            
+            <!-- 2. Midground Layers -->
+            <div class="para-element mid-lotus js-parallax-layer" data-speed="0.4" style="top: 60vh; right: 5vw;"></div>
+            <div class="para-element mid-lotus js-parallax-layer" data-speed="0.6" style="top: 220vh; left: 2vw; transform: scaleX(-1);"></div>
+            <div class="para-element mid-lotus js-parallax-layer" data-speed="0.5" style="top: 380vh; right: 8vw;"></div>
+
+            <!-- 3. Foreground Layers (Restored Cinematic Speed) -->
+            <div class="para-element fore-lotus js-parallax-layer" data-speed="0.9" style="top: 40vh; left: -8vw; transform: rotate(15deg);"></div>
+            <div class="para-element fore-lotus js-parallax-layer" data-speed="1.1" style="top: 180vh; right: -12vw; transform: rotate(-25deg);"></div>
+            <div class="para-element fore-lotus js-parallax-layer" data-speed="1.2" style="top: 320vh; left: -5vw; transform: rotate(40deg) scaleX(-1);"></div>
+
+            <!-- SECTION 1: HERO (LIFTED BUT LAYERED) -->
+            <section class="st-section hero-section">
+                <div class="content-box ethereal reveal">
+                    <span class="om-symbol">ॐ শ্রীশ্রী প্রজাপতয়ে নমঃ</span>
+                    <h1 class="sec-title">Soumen <span class="weds-txt">&amp;</span> Neelam</h1>
+                    <div class="elegant-divider">
+                        <span class="diamond">✧</span>
+                    </div>
+                    <p class="sub-txt">"Two souls, one heart — may this sacred bond be blessed with love as eternal as the stars above."</p>
+                    <div class="bengali-text">মদিয়ং হৃদয়ং মম তদিয়ং হৃদয়ং তব</div>
+                </div>
+            </section>
+
+            <!-- SECTION 2: THE COUPLE EDITORIAL (RESTORED) -->
+            <section class="st-section">
+                <div class="content-box ethereal reveal">
+                    <div class="names-editorial">
+                        <div class="person-card left-card">
+                            <p class="role-text">পাত্র : আয়ুষ্মান</p>
+                            <h2 class="name-bengali">সৌমেন</h2>
+                            <div class="parents-text">
+                                পিতা: শ্রীযুত খ্যাদেশ্বর মান্না<br>
+                                মাতা: শ্রীমতী গৌরী মান্না
+                            </div>
+                        </div>
+                        
+                        <div class="editorial-ampersand">&amp;</div>
+                        
+                        <div class="person-card right-card">
+                            <p class="role-text">পাত্রী : আয়ুষ্মতী</p>
+                            <h2 class="name-bengali">নীলম</h2>
+                            <div class="parents-text">
+                                পিতা: শ্রী হিমাংশু গিরি<br>
+                                মাতা: শ্রীমতী ভারতী গিরি
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 3: INVITATION -->
+            <section class="st-section">
+                <div class="content-box ethereal reveal">
+                    <h2 class="sec-title-small"> সাদর আমন্ত্রণ </h2>
+                    <div class="elegant-divider"><span class="diamond">✧</span></div>
+                    <p class="bengali-text-large">
+                        সুধী, আগামীন <span class="highlight-name">১৫ই বৈশাখ, ১৪৩৩</span> (২৯শে এপ্রিল, ২০২৬) বুধবার আমাদের একমাত্র কন্যার শুভ বিবাহ সুসম্পন্ন হবে। 
+                        <br><br>
+                        উক্ত মাঙ্গলিক অনুষ্ঠানে আপনার উপস্থিতি ও আশীর্বাদ আমাদের একান্ত কাম্য।
+                    </p>
+                </div>
+            </section>
+
+            <!-- SECTION 4: SCHEDULE / VENUE -->
+            <section class="st-section">
+                <div class="content-box ethereal reveal">
+                    <h2 class="sec-title">শুভ লগ্ন</h2>
+                    <div class="schedule-grid">
+                        <div class="schedule-item">
+                            <h3 class="event-title">শুভবিবাহ: ২৯শে এপ্রিল, ২০২৬</h3>
+                            <p class="event-venue">রাণীচক গ্রামনিবাসী শ্রীযুত বিজয়কৃষ্ণ পাত্র মহাশয়ের নিজ বাসভবন, দেপাল, পূর্ব মেদিনীপুর।</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 5: COUNTDOWN & BLESSINGS -->
+            <section class="st-section">
+                <div class="content-box ethereal reveal">
+                    <h2 class="sec-title-small" style="font-family:'Cinzel',serif; letter-spacing:8px;">AWAITING THE DAY</h2>
+                    
+                    <div class="luxury-countdown" id="countdown">
+                        <div class="cd-ring"><span class="cd-num" id="days">--</span><span class="cd-label">Days</span></div>
+                        <div class="cd-ring"><span class="cd-num" id="hours">--</span><span class="cd-label">Hours</span></div>
+                        <div class="cd-ring"><span class="cd-num" id="minutes">--</span><span class="cd-label">Mins</span></div>
+                        <div class="cd-ring"><span class="cd-num" id="seconds">--</span><span class="cd-label">Secs</span></div>
+                    </div>
+                    
+
+                </div>
+            </section>
+
+            <!-- SECTION 6: OUTRO -->
+            <section class="st-section" style="min-height: 50vh;">
+                <div class="content-box ethereal reveal">
+                    <p class="bengali-text" style="font-style: italic; opacity:0.8;">লৌকিকতার পরিবর্তে নবদম্পতিকে আশীর্বাদ প্রার্থনীয়।</p>
+                    <div class="elegant-divider" style="margin: 40px auto;"><span class="diamond">✧</span></div>
+                    <div class="sign-off">
+                        <p style="font-size: 0.8rem; letter-spacing: 4px; text-transform:uppercase; color:var(--gold); margin-bottom:10px;">বিনীত</p>
+                        <h3 style="font-family: 'Noto Serif Bengali', serif; font-size: 1.5rem; color: var(--ivory);">শ্রী হিমাংশু গিরি ও শ্রীমতী ভারতী গিরি</h3>
+                    </div>
+                    <p class="sibling-signature">
+                        ✧ A digital gift of love for my Didi ✧
+                    </p>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

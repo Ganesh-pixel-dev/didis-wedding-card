@@ -1,0 +1,802 @@
+:root {
+  --maroon: #5a0a0a;
+  --maroon-dark: #1a0505;
+  --maroon-light: #7a1515;
+  --gold: #C9960C;
+  --gold-glow: #F5E0A0;
+  --silver: #E0E0E0;
+  --ivory: #FDF6E3;
+  --curtain: #6B1020;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+body {
+  background: var(--maroon-dark);
+  color: var(--ivory);
+  font-family: 'EB Garamond', serif;
+  overflow-x: hidden;
+}
+
+body.locked {
+  overflow: hidden;
+}
+
+/* ── GLOBAL ATMOSPHERE ── */
+.global-grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.05;
+}
+
+.global-vignette {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9997;
+  background: radial-gradient(circle, transparent 40%, rgba(0, 0, 0, 0.4) 110%);
+}
+
+/* ================================= */
+/* 1. CURTAIN REVEAL                 */
+/* ================================= */
+#curtain-container {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+}
+
+.curtain-panel {
+  width: 50vw;
+  height: 100vh;
+  position: relative;
+  will-change: transform;
+  transform-origin: top center;
+  overflow: hidden;
+}
+
+.curtain-panel::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('assets/damask_maroon_1776451660143.webp');
+  background-size: 400px;
+  opacity: 0.15;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+.curtain-left {
+  background: linear-gradient(105deg, #3a0a13 0%, var(--curtain) 45%, #8a2030 90%, #1f050c 100%);
+  border-right: 2px solid var(--gold);
+  transform-origin: left;
+}
+
+.curtain-right {
+  background: linear-gradient(255deg, #3a0a13 0%, var(--curtain) 45%, #8a2030 90%, #1f050c 100%);
+  border-left: 2px solid var(--gold);
+  transform-origin: right;
+}
+
+/* Radiant Backlit Glow for the Gateway */
+#curtain-container::before {
+  content: '';
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(201, 150, 12, 0.2) 0%, transparent 70%);
+  z-index: 9998;
+  pointer-events: none;
+}
+
+/* Ornamental Corners */
+.gateway-corner {
+  position: fixed;
+  width: min(20vw, 180px);
+  aspect-ratio: 1/1;
+  background-image: url('gold_royal_corner_ornament_1776605557229.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: 10001;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+.top-left {
+  top: 20px;
+  left: 20px;
+}
+
+.top-right {
+  top: 20px;
+  right: 20px;
+  transform: scaleX(-1);
+}
+
+.bottom-left {
+  bottom: 20px;
+  left: 20px;
+  transform: scaleY(-1);
+}
+
+.bottom-right {
+  bottom: 20px;
+  right: 20px;
+  transform: scale(-1);
+}
+
+#curtain-lock {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: min(90vw, 420px);
+  aspect-ratio: 1/1;
+  text-align: center;
+  background: radial-gradient(circle, rgba(60, 5, 10, 0.98) 0%, rgba(30, 2, 5, 0.95) 75%, transparent 100%);
+  border-radius: 50%;
+  border: 1px solid rgba(245, 224, 160, 0.4);
+  box-shadow: 0 0 50px rgba(0, 0, 0, 1), 0 0 30px rgba(201, 150, 12, 0.3);
+  padding: 40px;
+}
+
+#curtain-lock.out {
+  opacity: 0;
+  transform: translate(-50%, -60%);
+  pointer-events: none;
+  transition: 0.6s all;
+}
+
+.lock-name {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(28px, 6vw, 48px);
+  color: var(--gold-glow);
+  display: block;
+  letter-spacing: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shimmer 4s infinite linear;
+}
+
+@keyframes shimmer {
+  to {
+    background-position: 200% center;
+  }
+}
+
+.lock-weds {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(18px, 3.5vw, 28px);
+  color: var(--gold);
+  margin: 8px 0;
+  display: block;
+}
+
+.open-btn {
+  background: linear-gradient(135deg, var(--gold), #9a781b);
+  color: #111;
+  border: none;
+  padding: 14px 36px;
+  border-radius: 40px;
+  font-family: 'Cinzel', serif;
+  font-size: 12px;
+  letter-spacing: 4px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: 0.2s all;
+}
+
+.open-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(201, 150, 12, 0.4);
+}
+
+/* ================================= */
+/* 2. FIXED BACKGROUND (SHARP)       */
+/* ================================= */
+#diorama-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+.p-layer {
+  position: absolute;
+  top: -20%;
+  left: -10%;
+  width: 120%;
+  height: 140%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* FIX: Prevent ganesh ji 'breakage' from tiling */
+  will-change: transform;
+}
+
+.layer-maroon {
+  background-image: url('assets/maroon_damask_texture_1776455550570.png');
+  z-index: 1;
+}
+
+.layer-arch {
+  background-image: url('assets/palace_arch_silhouette_1776456000384.png');
+  mix-blend-mode: screen;
+  opacity: 0.3;
+  z-index: 2;
+}
+
+.layer-mandala {
+  background-image: url('assets/gold_mandala_premium_1776453993591.png');
+  mix-blend-mode: screen;
+  background-size: 110vmin auto;
+  background-position: center 30%;
+  opacity: 0.45;
+  z-index: 3;
+}
+
+#master-cutout-frame {
+  position: fixed;
+  inset: 0;
+  z-index: 4;
+  /* Sits above the background (z-3) but below foreground elements */
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(20, 1, 5, 0.6) 0%, rgba(40, 5, 8, 0.4) 100%);
+}
+
+#master-cutout-lines {
+  position: fixed;
+  inset: 0;
+  z-index: 101;
+  pointer-events: none;
+}
+
+/* ================================= */
+/* 2c. PARALLAX ELEMENTS (DEPTH)     */
+/* ================================= */
+.para-element {
+  position: absolute;
+  background-size: contain;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  will-change: transform;
+  mix-blend-mode: screen !important;
+  /* FORCED OVERRIDE: Eliminates all black box artifacts */
+}
+
+.bg-vine {
+  width: 200px;
+  height: 350px;
+  opacity: 0.25;
+  z-index: 2;
+  background-image: url('assets/gold_vine_isolated_1776455582862.png');
+  mix-blend-mode: screen;
+}
+
+.mid-lotus {
+  width: 120px;
+  height: 120px;
+  opacity: 0.55;
+  z-index: 6;
+  background-image: url('assets/gold_lotus_isolated_1776455566923.png');
+  mix-blend-mode: screen;
+}
+
+.fore-lotus {
+  width: 450px;
+  height: 450px;
+  opacity: 0.35;
+  z-index: 150;
+  background-image: url('assets/gold_lotus_isolated_1776455566923.png');
+  filter: none;
+  /* Restored to sharp state as original */
+  mix-blend-mode: screen;
+}
+
+/* ── STARS LAYER (was missing) ── */
+.layer-stars {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image:
+    radial-gradient(1px 1px at 10% 15%, rgba(245, 224, 160, 0.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 25% 40%, rgba(245, 224, 160, 0.4) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 50% 10%, rgba(245, 224, 160, 0.7) 0%, transparent 100%),
+    radial-gradient(1px 1px at 70% 30%, rgba(245, 224, 160, 0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 85% 55%, rgba(245, 224, 160, 0.4) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 35% 70%, rgba(245, 224, 160, 0.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 60% 80%, rgba(245, 224, 160, 0.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 90% 20%, rgba(245, 224, 160, 0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 15% 85%, rgba(245, 224, 160, 0.4) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 78% 65%, rgba(245, 224, 160, 0.6) 0%, transparent 100%);
+  z-index: 4;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+/* ── FLOATING ITEM BASE (was missing) ── */
+.floating-item {
+  position: absolute;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* ================================= */
+/* 3. SCROLL CONTENT (LIFTED)        */
+/* ================================= */
+
+/* FIX: Lenis requires these for smooth scroll to work */
+#smooth-wrapper {
+  width: 100%;
+  position: relative;
+  /* overflow:hidden removed — was blocking click events on child buttons */
+}
+
+#smooth-content {
+  position: relative;
+  width: 100%;
+  /* Removed z-index to fix blend-mode isolation for background assets */
+}
+
+.st-section {
+  min-height: 65vh; /* Reduced from 100vh for more compact scrolling */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px; /* Reduced from 100px for tighter grouping */
+  position: relative;
+}
+
+.hero-section {
+  min-height: 70vh !important;
+  align-items: flex-start !important;
+  padding-top: 10vh !important; /* Reduced from 15vh */
+}
+
+.content-box.ethereal {
+  background: transparent;
+  text-align: center;
+  max-width: 800px;
+  width: 100%;
+  z-index: 10;
+}
+
+/* FIX: .reveal was used but never defined — scroll-reveal base state */
+/* Removed scroll reveal logic to keep content visible and clean */
+.reveal {
+  opacity: 1;
+  transform: none;
+}
+
+.om-symbol {
+  font-family: 'Noto Serif Bengali', serif;
+  font-size: 1.8rem;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 30px;
+}
+
+.sec-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(36px, 6vw, 64px);
+  color: var(--gold-glow);
+  line-height: 1.2;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 1), 0 0 40px rgba(0, 0, 0, 0.4);
+}
+
+.sub-txt {
+  font-size: 1.3rem;
+  color: rgba(245, 246, 227, 0.9);
+  font-style: italic;
+  margin: 20px 0;
+}
+
+.bengali-text {
+  font-family: 'Noto Serif Bengali', serif;
+  font-size: 1.3rem;
+  margin-top: 15px;
+}
+
+/* FIX: .sec-title-small was used but never defined */
+.sec-title-small {
+  font-family: 'Noto Serif Bengali', serif;
+  font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+  color: var(--gold-glow);
+  line-height: 1.3;
+  text-shadow: 0 3px 15px rgba(0, 0, 0, 1);
+  margin-bottom: 10px;
+}
+
+/* FIX: .bengali-text-large was used but never defined */
+.bengali-text-large {
+  font-family: 'Noto Serif Bengali', serif;
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  line-height: 2;
+  color: rgba(253, 246, 227, 0.92);
+  margin-top: 20px;
+}
+
+/* FIX: .highlight-name was used but never defined */
+.highlight-name {
+  color: var(--gold-glow);
+  font-weight: 600;
+  text-shadow: 0 0 12px rgba(201, 150, 12, 0.5);
+}
+
+/* FIX: .weds-txt used in hero h1 — style it */
+.weds-txt {
+  font-family: 'Great Vibes', cursive;
+  font-size: 0.75em;
+  color: var(--gold);
+  display: inline-block;
+  margin: 0 12px;
+  vertical-align: middle;
+}
+
+/* ================================= */
+/* NAME CARDS (EDITORIAL RESTORED)   */
+/* ================================= */
+.names-editorial {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  margin: 50px 0;
+}
+
+.name-bengali {
+  font-family: 'Noto Serif Bengali', serif;
+  font-size: clamp(3.5rem, 11vw, 7.5rem);
+  color: var(--gold-glow);
+  line-height: 1.1;
+  text-shadow: 0 10px 40px rgba(0, 0, 0, 1);
+}
+
+.role-text {
+  font-size: 0.8rem;
+  color: var(--gold);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.parents-text {
+  font-family: 'Noto Serif Bengali', serif;
+  font-size: 1.05rem;
+  opacity: 0.8;
+  line-height: 1.6;
+}
+
+.editorial-ampersand {
+  font-family: 'Great Vibes', cursive;
+  font-size: 6rem;
+  color: var(--gold);
+  line-height: 0.5;
+  margin: 20px 0;
+}
+
+/* ================================= */
+/* SCHEDULE GRID                     */
+/* ================================= */
+.schedule-grid {
+  margin-top: 40px;
+}
+
+.schedule-item {
+  border: 1px solid rgba(201, 150, 12, 0.3);
+  padding: 30px 40px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.event-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.2rem;
+  color: var(--gold-glow);
+  margin-bottom: 15px;
+}
+
+.event-venue {
+  font-family: 'Noto Serif Bengali', serif;
+  font-size: 1.1rem;
+  line-height: 1.9;
+  opacity: 0.85;
+}
+
+/* ================================= */
+/* ELEGANT DIVIDER                   */
+/* ================================= */
+.elegant-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 24px auto;
+}
+
+.elegant-divider::before,
+.elegant-divider::after {
+  content: '';
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+  display: block;
+}
+
+.diamond {
+  color: var(--gold);
+  font-size: 1rem;
+}
+
+/* ================================= */
+/* COUNTDOWN & BUTTON                */
+/* ================================= */
+.luxury-countdown {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  margin: 50px 0;
+  flex-wrap: wrap;
+}
+
+.cd-ring {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.4);
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.cd-num {
+  font-family: 'Cinzel', serif;
+  font-size: 2rem;
+  color: var(--gold-glow);
+}
+
+.cd-label {
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.bless-btn-luxury {
+  padding: 18px 50px;
+  border-radius: 50px;
+  border: 1px solid var(--gold);
+  background: transparent;
+  color: var(--gold-glow);
+  font-family: 'Cinzel', serif;
+  letter-spacing: 5px;
+  cursor: pointer;
+  transition: 0.3s all;
+  margin-top: 10px;
+  position: relative;
+  overflow: hidden;
+  /* For shimmer */
+  animation: blessBreath 3s infinite ease-in-out;
+}
+
+@keyframes blessBreath {
+
+  0%,
+  100% {
+    box-shadow: 0 0 10px rgba(201, 150, 12, 0.3);
+    border-color: rgba(201, 150, 12, 0.4);
+    transform: scale(1);
+  }
+
+  50% {
+    box-shadow: 0 0 25px rgba(201, 150, 12, 0.8), 0 0 45px rgba(201, 150, 12, 0.3);
+    border-color: var(--gold-glow);
+    transform: scale(1.02);
+  }
+}
+
+/* SHIMMER ANIMATION - Triggered on hover only */
+.bless-btn-luxury:hover::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -100%;
+  width: 50%;
+  height: 200%;
+  background: linear-gradient(to right,
+      transparent 0%,
+      rgba(255, 255, 255, 0.1) 30%,
+      rgba(255, 255, 255, 0.5) 50%,
+      rgba(255, 255, 255, 0.1) 70%,
+      transparent 100%);
+  transform: rotate(25deg);
+  animation: lux-shimmer 1.5s ease-in-out forwards;
+}
+
+/* SHIMMER ANIMATION - Restored to a smooth, infinite loop */
+.bless-btn-luxury::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -100%;
+  width: 50%;
+  height: 200%;
+  background: linear-gradient(to right,
+      transparent 0%,
+      rgba(255, 255, 255, 0.1) 30%,
+      rgba(255, 255, 255, 0.4) 50%,
+      rgba(255, 255, 255, 0.1) 70%,
+      transparent 100%);
+  transform: rotate(25deg);
+  animation: lux-shimmer 4s infinite ease-in-out;
+  pointer-events: none; /* FIX: shimmer overlay was intercepting button clicks */
+}
+
+@keyframes lux-shimmer {
+  0% {
+    left: -100%;
+  }
+
+  30% {
+    left: 150%;
+  }
+
+  100% {
+    left: 150%;
+  }
+}
+
+.bless-btn-luxury:hover {
+  background: rgba(201, 150, 12, 0.2);
+  border-color: var(--gold-glow);
+  box-shadow: 0 0 30px rgba(201, 150, 12, 0.5);
+}
+
+/* PETALS (SHARP) */
+.custom-petal {
+  position: fixed;
+  z-index: 10000;
+  pointer-events: none;
+}
+
+.petal-rose {
+  width: 22px;
+  height: 16px;
+  background: #af112d;
+  border-radius: 50% 0 50% 50%;
+  opacity: 0.9;
+}
+
+.petal-marigold {
+  width: 16px;
+  height: 16px;
+  background: #ffa100;
+  border-radius: 50%;
+  opacity: 0.9;
+}
+
+.petal-gold {
+  width: 12px;
+  height: 12px;
+  background: linear-gradient(135deg, #ffd700, #b8860b);
+  border-radius: 5px 15px 2px 15px;
+  opacity: 0.9;
+}
+
+.sign-off { margin-top: 20px; }
+
+/* Nested block that was accidentally inside petal-gold — now fixed */
+.custom-petal-old-duplicate {
+    position: fixed;
+    width: 15px;
+    height: 15px;
+    pointer-events: none;
+    z-index: 10000;
+    border-radius: 5px 15px 2px 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  }
+
+  .petal-rose {
+    background: linear-gradient(135deg, #ff4d6d, #c9184a);
+  }
+
+  .petal-marigold {
+    background: linear-gradient(135deg, #ffb703, #fb8500);
+  }
+
+  .petal-gold {
+    background: linear-gradient(135deg, #ffd700, #b8860b);
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+  }
+
+/* Sibling's Personal Signature */
+.sibling-signature {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(0.6rem, 2.5vw, 0.8rem);
+  color: var(--gold);
+  opacity: 0.8;
+  margin-top: clamp(40px, 10vh, 80px);
+  letter-spacing: clamp(2px, 1vw, 5px);
+  text-transform: uppercase;
+  width: 100%;
+  text-align: center;
+}
+
+  @media (max-width: 768px) {
+    .st-section {
+      min-height: 50vh;
+      padding: 40px 18px;
+    }
+
+    .gateway-corner {
+      width: 28vw;
+    }
+    .top-left { top: 10px; left: 10px; }
+    .top-right { top: 10px; right: 10px; }
+    .bottom-left { bottom: 10px; left: 10px; }
+    .bottom-right { bottom: 10px; right: 10px; }
+    .hero-section {
+      padding-top: 10vh !important;
+    }
+
+    .name-bengali {
+      font-size: 4.5rem;
+    }
+
+    .fore-lotus {
+      width: 250px;
+      height: 250px;
+      opacity: 0.2;
+    }
+
+    .mid-lotus {
+      width: 80px;
+      height: 80px;
+    }
+
+    .bg-vine {
+      display: none;
+    }
+
+    .luxury-countdown {
+      gap: 15px;
+    }
+
+    .cd-ring {
+      width: 75px;
+      height: 75px;
+    }
+
+    .cd-num {
+      font-size: 1.5rem;
+    }
+
+    .schedule-item {
+      padding: 20px;
+    }
+  }
