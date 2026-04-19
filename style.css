@@ -161,14 +161,15 @@ body.locked {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: min(90vw, 420px);
+  width: min(85vw, 420px); /* Slightly narrower for mobile safety */
   aspect-ratio: 1/1;
   text-align: center;
-  background: radial-gradient(circle, rgba(60, 5, 10, 0.98) 0%, rgba(30, 2, 5, 0.95) 75%, transparent 100%);
+  /* Premium radial gradient */
+  background: radial-gradient(circle at center, rgba(60, 5, 10, 0.98) 0%, rgba(30, 2, 5, 0.95) 75%, transparent 100%);
   border-radius: 50%;
   border: 1px solid rgba(245, 224, 160, 0.4);
   box-shadow: 0 0 50px rgba(0, 0, 0, 1), 0 0 30px rgba(201, 150, 12, 0.3);
-  padding: 40px;
+  padding: clamp(20px, 5vw, 40px); /* Fluid padding */
 }
 
 #curtain-lock.out {
@@ -765,12 +766,12 @@ body.locked {
     }
 
     .gateway-corner {
-      width: 28vw;
+      width: 22vw; /* Leaner corners to avoid crowding */
     }
-    .top-left { top: 10px; left: 10px; }
-    .top-right { top: 10px; right: 10px; }
-    .bottom-left { bottom: 10px; left: 10px; }
-    .bottom-right { bottom: 10px; right: 10px; }
+    .top-left { top: 5px; left: 5px; }
+    .top-right { top: 5px; right: 5px; }
+    .bottom-left { bottom: 5px; left: 5px; }
+    .bottom-right { bottom: 5px; right: 5px; }
     .hero-section {
       padding-top: 8vh !important;
     }
