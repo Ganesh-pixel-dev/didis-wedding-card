@@ -837,4 +837,10 @@ body.locked {
       width: 110%;
       height: 110%;
     }
+
+    .sibling-signature {
+      font-size: 0.55rem;
+      letter-spacing: 2px;
+      margin-top: 30px;
+    }
   }
