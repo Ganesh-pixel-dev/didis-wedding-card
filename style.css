@@ -15,15 +15,15 @@
   box-sizing: border-box;
 }
 
-html {
-  scroll-behavior: auto;
-}
-
-body {
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
   background: var(--maroon-dark);
   color: var(--ivory);
   font-family: 'EB Garamond', serif;
-  overflow-x: hidden;
 }
 
 body.locked {
@@ -91,13 +91,14 @@ body.locked {
 .curtain-seam {
   position: fixed;
   top: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  right: 0;
+  margin: 0 auto; /* Hard-lock to absolute viewport center */
   width: 2px;
   height: 100%;
   background: linear-gradient(to bottom, #d4af37, #f5e0a0, #d4af37);
   box-shadow: 0 0 15px rgba(201, 150, 12, 0.4);
-  z-index: 9999;
+  z-index: 10000;
   pointer-events: none;
 }
 
@@ -232,6 +233,9 @@ body.locked {
 #diorama-bg {
   position: fixed;
   inset: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden; /* Ensure parallax layers don't cause shifts */
   pointer-events: none;
 }
 
