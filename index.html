@@ -30,8 +30,14 @@
         <div class="gateway-corner bottom-left"></div>
         <div class="gateway-corner bottom-right"></div>
 
-        <div class="curtain-panel curtain-left"></div>
-        <div class="curtain-panel curtain-right"></div>
+        <div class="curtain-panel curtain-left">
+            <div class="curtain-folds"></div>
+            <div class="curtain-fringe"></div>
+        </div>
+        <div class="curtain-panel curtain-right">
+            <div class="curtain-folds"></div>
+            <div class="curtain-fringe"></div>
+        </div>
         <div class="curtain-seam"></div>
         
         <div id="curtain-lock">
@@ -40,7 +46,7 @@
                 <span class="lock-weds">weds</span>
                 <span class="lock-name">Neelam</span>
             </div>
-            <button class="open-btn" id="openBtn">আমন্ত্রণ গ্রহণ করুন</button>
+            <button class="open-btn" id="openBtn">✧ TAP TO OPEN ✧</button>
         </div>
     </div>
 
@@ -157,6 +163,7 @@
                         <div class="cd-ring"><span class="cd-num" id="seconds">--</span><span class="cd-label">Secs</span></div>
                     </div>
                     
+                    <button class="bless-btn-luxury" id="blessBtn">Bless the Couple</button>
 
                 </div>
             </section>
@@ -176,6 +183,14 @@
                 </div>
             </section>
         </div>
+    </div>
+
+    <!-- FLOATING MUSIC CONTROL -->
+    <div id="music-control" class="music-btn hidden">
+        <div class="music-bars">
+            <span></span><span></span><span></span><span></span>
+        </div>
+        <span class="music-label">MUSIC</span>
     </div>
 
     <!-- SCRIPTS -->

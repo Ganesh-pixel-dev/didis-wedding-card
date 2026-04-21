@@ -29,29 +29,32 @@ const curtainLock = document.getElementById('curtain-lock');
 
 openBtn.addEventListener('click', () => {
     const bgm = document.getElementById('wedding-bgm');
+    const musicCtrl = document.getElementById('music-control');
+
     if (bgm) {
         bgm.volume = 0.4;
-        bgm.play().catch(e => console.log('Audio autoplay blocked by browser', e));
+        bgm.play().then(() => {
+            if(musicCtrl) {
+                musicCtrl.classList.remove('hidden');
+                musicCtrl.classList.add('playing');
+            }
+        }).catch(e => console.log('Audio autoplay blocked', e));
     }
 
     gsap.to(curtainLock, { opacity: 0, y: -50, duration: 0.8, ease: "power2.inOut" });
     gsap.to('.curtain-seam', { opacity: 0, duration: 1.5, ease: "power2.inOut" });
 
     gsap.to(curtainLeft, {
-        duration: 2.2,
-        xPercent: -100,
-        scaleX: 0.2,
-        skewX: -15,
-        borderBottomRightRadius: "60%",
+        duration: 2.5,
+        xPercent: -105, // Slight extra push to hide shadows
+        skewX: -5,      // Subtle fabric tilt
         ease: "power3.inOut"
     });
 
     gsap.to(curtainRight, {
-        duration: 2.2,
-        xPercent: 100,
-        scaleX: 0.2,
-        skewX: 15,
-        borderBottomLeftRadius: "60%",
+        duration: 2.5,
+        xPercent: 105,
+        skewX: 5,
         ease: "power3.inOut"
     });
 
@@ -64,12 +67,26 @@ openBtn.addEventListener('click', () => {
         lenis.start();
         initDiorama();
         
-        // Final refresh to ensure everything is aligned after reveal
         setTimeout(() => {
             ScrollTrigger.refresh();
         }, 100);
-    }, 2400);
+    }, 2600);
 });
+
+// 3. Music Control Toggle
+const musicCtrl = document.getElementById('music-control');
+if (musicCtrl) {
+    musicCtrl.addEventListener('click', () => {
+        const bgm = document.getElementById('wedding-bgm');
+        if (bgm.paused) {
+            bgm.play();
+            musicCtrl.classList.add('playing');
+        } else {
+            bgm.pause();
+            musicCtrl.classList.remove('playing');
+        }
+    });
+}
 
 // 4. The Diorama Parallax Engine
 function initDiorama() {
@@ -155,3 +172,55 @@ function startCountdown() {
 }
 
 // 6. Epic Blessing Shower
+const blessBtn = document.getElementById('blessBtn');
+if (blessBtn) {
+    blessBtn.addEventListener('click', () => {
+        createBlessingShower();
+        
+        // Haptic-like feedback: button scale pulse
+        gsap.to(blessBtn, { scale: 0.9, duration: 0.1, yoyo: true, repeat: 1 });
+    });
+}
+
+function createBlessingShower() {
+    const types = ['petal-rose', 'petal-marigold', 'petal-gold'];
+    const count = 60;
+
+    for (let i = 0; i < count; i++) {
+        const petal = document.createElement('div');
+        const type = types[Math.floor(Math.random() * types.length)];
+        petal.classList.add('custom-petal', type);
+        
+        // Random starting position above the screen
+        const startX = Math.random() * window.innerWidth;
+        const startY = -50 - (Math.random() * 200);
+        
+        petal.style.left = startX + 'px';
+        petal.style.top = startY + 'px';
+        
+        // Random size/scale
+        const scale = 0.5 + Math.random() * 1.2;
+        petal.style.transform = `scale(${scale})`;
+        
+        document.body.appendChild(petal);
+
+        // GSAP Animation: Falling with drift and rotation
+        gsap.to(petal, {
+            y: window.innerHeight + 200,
+            x: startX + (Math.random() - 0.5) * 400, // horizontal drift
+            rotation: Math.random() * 720,
+            duration: 4 + Math.random() * 4,
+            ease: "none",
+            onComplete: () => petal.remove()
+        });
+
+        // Extra "flutter" effect for rotationX and rotationY
+        gsap.to(petal, {
+            rotationX: Math.random() * 360,
+            rotationY: Math.random() * 360,
+            duration: 1 + Math.random() * 2,
+            repeat: -1,
+            ease: "sine.inOut"
+        });
+    }
+}
